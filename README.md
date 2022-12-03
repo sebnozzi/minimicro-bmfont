@@ -1,6 +1,10 @@
 # BMFont Rendering for Mini Micro
 
+> **WARNING: this should be considered "*alpha*" software: APIs are still subject to change.**
+
 This library brings [BMFont](http://www.angelcode.com/products/bmfont/) rendering to the Mini Micro.
+
+By converting TrueType fonts (TTF) to BMFont (see approaches below) rendering TTFs on Mini Micro becomes possible.
 
 ![Text rendering demo](./doc-assets/screenshot_small.png)
 
@@ -28,7 +32,7 @@ renderer.print str,20,20
 
 Explanation:
 
-1. The module needs to be imported
+1. The module `bmfontRendering` needs to be imported
 2. Call the `loadFont` function, passing a path to the PNG (glyphs) file and a path to the text-based "descriptor" file (usually with ".fnt" extension, but possibly also ".txt"). This will return a `Font` instance.
 3. Instantiate a "renderer". In this example a "baseline" renderer has been instantiated and the default "gfx" `PixelDisplay` was passed as a rendering "target".
 4. Render text on the specified "target".
@@ -64,27 +68,61 @@ Concrete "target renderers" are:
 * `LineHeightRenderer`
 * `CompactRenderer`
 
+#### BaseLineRenderer
+
 `BaseLineRenderer` interprets the "y" coordinate as a baseline. The glyphs are rendered on that baseline. Parts of the text can be below that line, and usually above.
 
 ![baseline rendering](./doc-assets/baseline-rendering.png)
+
+It can be instantiated with the module function:
+
+```
+.newBaseLineRenderer(target,font)
+```
+
+#### LineHeightRenderer
 
 `LineHeightRenderer` renders the text inside an area as high as "line height" (as specified by the font definition). The "y" coordinate is the start of this area.
 
 ![line-height rendering](./doc-assets/line-height-rendering.png)
 
+It can be instantiated with the module function:
+
+```
+.newLineHeightRenderer(target,font)
+```
+
+#### CompactRenderer
+
 `CompactRenderer` calculates a minimal enclosing rectangle for the requested text, and renders it inside. The "y" coordinate points to the bottom of this rectangle.
+
+It can be instantiated with the module function:
+
+```
+.newCompactRenderer(target,font)
+```
 
 ![compact rendering](./doc-assets/compact-rendering.png)
 
 ### ImageRenderer
 
-An `ImageRenderer` offers this method:
+An `ImageRenderer` can be instantiated with the module function:
+
+```
+.newImageRenderer(font)
+```
+
+Note how a "target" is _not_ passed as a parameter.
+
+In contrast to target-renderers, it does not "print" to a coordinate.
+
+Instead, it offers this method:
 
 ```
 .printToImg textToRender
 ```
 
-It returns an `Image` with the text rendered. The size is just big enough to render the requested text (using a `CompactRenderer` behind the scenes).
+This returns an `Image` with the text rendered. The size is just big enough to render the requested text (using a `CompactRenderer` behind the scenes).
 
 ## Generating Fonts
 
@@ -132,6 +170,18 @@ fontbm --output freakshow --font-size 100 --font-file freakshow.ttf
 This generates the ".png" glyphs file and a ".fnt" (text) descriptor file.
 
 These files are needed as input for the library.
+
+### 3. Other tools
+
+If you are running Windows you can of course use the offical ["Bitmap Font Generator"](https://www.angelcode.com/products/bmfont/) tool from [AngelCode.com](https://www.angelcode.com/), which defined the standard.
+
+It also includes interesting links to documentation and articles, and references other tools.
+
+Among those other tools there is this Java-based UI solution:
+
+https://libgdx.com/wiki/tools/hiero
+
+Since the author of this library has not tested it, instructions are not included in this README.
 
 ## Credits
 
