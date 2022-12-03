@@ -1,4 +1,4 @@
-# BMFont Rendering for Mini Micro
+# BMFont Rendering for the Mini Micro
 
 > **WARNING: this should be considered "*alpha*" software: APIs are still subject to change.**
 
