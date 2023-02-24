@@ -2,7 +2,7 @@
 
 This library brings [BMFont](http://www.angelcode.com/products/bmfont/) rendering to the Mini Micro.
 
-> **NOTE: not to be confused with the [BMF format](https://bmf.php5.cz/) for which another [Mini Micro library](https://github.com/JoeStrout/minimicro-fonts) exists. **
+> NOTE: not to be confused with the [BMF format](https://bmf.php5.cz/) for which another [Mini Micro library](https://github.com/JoeStrout/minimicro-fonts) exists.
 
 By converting TrueType fonts (TTF) to BMFont (see approaches below) rendering TTFs on Mini Micro becomes possible.
 
